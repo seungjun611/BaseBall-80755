@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <string>
+#include <vector>
 using namespace std;
 
 struct GuessResult {
@@ -22,7 +23,35 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		
+		else
+		{
+			int strike = 0;
+			vector<int> ball_candidates;
+			for (int i = 0; i < 3; i++)
+			{
+				if (guessNumber[i] == question[i])
+				{
+					strike++;
+				}
+				else
+				{
+					ball_candidates.push_back(guessNumber[i]);
+				}
+			}
+
+			int ball = 0;
+			for (char candidate : ball_candidates)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (candidate == question[i]) {
+						ball++;
+					}
+				}
+			}
+
+			return { false, strike, ball };
+		}
 		return { false, 0, 0 };
 	}
 
